@@ -1,9 +1,9 @@
 function CommerceHandler(common) {
-    this.common = common || {};
+  this.common = common || {};
 }
 
-CommerceHandler.prototype.logCommerceEvent = function(event) {
-    /*
+CommerceHandler.prototype.logCommerceEvent = function (event) {
+  /*
         Sample ecommerce event schema:
         {
             CurrencyCode: 'USD',
