@@ -1,33 +1,36 @@
 <html>
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Mocha Tests</title>
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
-</head>
-<body>
+  </head>
+  <body>
     <div id="mocha"></div>
 
     <script src="../node_modules/mocha/mocha.js"></script>
     <script src="../node_modules/should/should.js"></script>
     <script src="./boilerplate/mockhttprequest.js"></script>
     <script src="../node_modules/mparticle-sdk-javascript/mparticle.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@mparticle/web-sdk/dist/mparticle.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@mparticle/web-sdk/dist/mparticle.js"
+    ></script>
 
     <script>
-        var self = mParticle;
-        mParticle.addForwarder = function (forwarder) {
-            self.forwarder = new forwarder.constructor();
-        };
-
+      var self = mParticle;
+      mParticle.addForwarder = function (forwarder) {
+        self.forwarder = new forwarder.constructor();
+      };
     </script>
-    <!-- change name of XYZ-Kit below to the name of your built kit-->
-    <script src="../dist/XYZ-Kit.js"></script>
+    <script src="../dist/upollo-Kit.iife.js"></script>
 
-    <script>mocha.setup('bdd')</script>
+    <script>
+      mocha.setup("bdd");
+    </script>
 
     <script src="./tests.js"></script>
     <script>
-        mocha.run();
+      mocha.run();
     </script>
-</body>
+  </body>
 </html>

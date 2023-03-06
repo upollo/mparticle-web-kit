@@ -18,35 +18,52 @@ identityApiRequest has the schema:
 For more userIdentity types, see http://docs.mparticle.com/developers/sdk/javascript/identity#allowed-identity-types
 */
 
-function IdentityHandler(common) {
-    this.common = common || {};
+function upTrack(mParticleUser, eventType, upClient) {
+  const ids = mParticleUser.getUserIdentities();
+  const email = ids.userIdentities.email;
+  const userId = ids.userIdentities.customerid;
+  const phone = ids.userIdentities.mobile_phone;
+  if (upClient && (email || userId || phone)) {
+    const userInfo = { userEmail: email, userId: userId, userPhone: phone };
+    upClient.track(userInfo, eventType);
+  }
 }
-IdentityHandler.prototype.onUserIdentified = function(mParticleUser) {};
-IdentityHandler.prototype.onIdentifyComplete = function(
-    mParticleUser,
-    identityApiRequest
+
+function IdentityHandler(common) {
+  this.common = common || {};
+}
+IdentityHandler.prototype.onUserIdentified = function (mParticleUser) {};
+IdentityHandler.prototype.onIdentifyComplete = function (
+  mParticleUser,
+  identityApiRequest
+) {
+  const eventType = 16; // EVENT_TYPE_HEARTBEAT
+  upTrack(mParticleUser, eventType, this.common.upClient);
+};
+IdentityHandler.prototype.onLoginComplete = function (
+  mParticleUser,
+  identityApiRequest
+) {
+  const eventType = 1; // login
+  upTrack(mParticleUser, eventType, this.common.upClient);
+};
+IdentityHandler.prototype.onLogoutComplete = function (
+  mParticleUser,
+  identityApiRequest
 ) {};
-IdentityHandler.prototype.onLoginComplete = function(
-    mParticleUser,
-    identityApiRequest
-) {};
-IdentityHandler.prototype.onLogoutComplete = function(
-    mParticleUser,
-    identityApiRequest
-) {};
-IdentityHandler.prototype.onModifyComplete = function(
-    mParticleUser,
-    identityApiRequest
+IdentityHandler.prototype.onModifyComplete = function (
+  mParticleUser,
+  identityApiRequest
 ) {};
 
 /*  In previous versions of the mParticle web SDK, setting user identities on
     kits is only reachable via the onSetUserIdentity method below. We recommend
     filling out `onSetUserIdentity` for maximum compatibility
 */
-IdentityHandler.prototype.onSetUserIdentity = function(
-    forwarderSettings,
-    id,
-    type
+IdentityHandler.prototype.onSetUserIdentity = function (
+  forwarderSettings,
+  id,
+  type
 ) {};
 
 module.exports = IdentityHandler;
