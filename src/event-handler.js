@@ -25,7 +25,7 @@ EventHandler.prototype.logError = function (event) {
   // }
 };
 EventHandler.prototype.logPageView = function (event) {
-  /* The schema for a logPagView event is the same, but noteworthy differences are as follows:
+  /* The schema for a logPageView event is the same, but noteworthy differences are as follows:
         {
             EventAttributes: {hostname: "www.google.com", title: 'Test Page'},  // These are event attributes only if no additional event attributes are explicitly provided to mParticle.logPageView(...)
         }
